@@ -1,0 +1,31 @@
+
+services:
+  frontend:
+    build: frontend
+    command: "yarn dev"
+    environment:
+      - "USER_ID=1000"
+      - "GROUP_ID=1000"
+    volumes:
+      - "./frontend:/app"
+      - "frontend-volume:/app/node_modules"
+    ports:
+      - 5173:5173
+      
+  backend:
+    build: backend
+    command: "yarn start"
+    environment:
+      - "USER_ID=1000"
+      - "GROUP_ID=1000"
+      - "JWT_SECRET=agri-zamba-1234"
+      - "ENVIRONMENT=development"
+    volumes:
+      - "./backend:/app"
+      - "backend-volume:/app/node_modules"
+    ports:
+      - 8000:3000
+
+volumes:
+  frontend-volume:
+  backend-volume:
